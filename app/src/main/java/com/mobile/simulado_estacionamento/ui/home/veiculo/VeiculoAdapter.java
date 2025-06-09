@@ -11,7 +11,11 @@ import com.mobile.simulado_estacionamento.R;
 
 import org.jspecify.annotations.NonNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class VeiculoAdapter extends RecyclerView.Adapter<VeiculoAdapter.VeiculoViewHolder> {
 
@@ -33,8 +37,16 @@ public class VeiculoAdapter extends RecyclerView.Adapter<VeiculoAdapter.VeiculoV
     public void onBindViewHolder(@NonNull VeiculoViewHolder holder, int position) {
         Veiculo v = lista.get(position);
         holder.textPlaca.setText(v.getPlaca());
-        holder.textDataHora.setText("Entrada: " + v.getDataHora());
-        
+        holder.textDataHora.setText(v.getDataHora());
+        View sair = holder.itemView.findViewById(R.id.bt_sair);
+        sair.setOnClickListener(View -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            sdf.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
+            String horaSaida = sdf.format(new Date());
+            holder.horario_saida.setText(horaSaida);
+            sair.setVisibility(View.INVISIBLE);
+        });
+
     }
 
     @Override
@@ -43,12 +55,14 @@ public class VeiculoAdapter extends RecyclerView.Adapter<VeiculoAdapter.VeiculoV
     }
 
     public static class VeiculoViewHolder extends RecyclerView.ViewHolder {
-        TextView textPlaca, textDataHora;
+        TextView textPlaca, textDataHora, horario_saida;
 
         public VeiculoViewHolder(@NonNull View itemView) {
             super(itemView);
             textPlaca = itemView.findViewById(R.id.id_placa);
             textDataHora = itemView.findViewById(R.id.id_entrada);
+            horario_saida = itemView.findViewById(R.id.id_saida);
+
         }
     }
 }
