@@ -25,7 +25,7 @@ public class VeiculoAdapter extends RecyclerView.Adapter<VeiculoAdapter.VeiculoV
     @Override
     public VeiculoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_veiculo, parent, false);
+                .inflate(R.layout.item_nota, parent, false);
         return new VeiculoViewHolder(v);
     }
 
@@ -33,7 +33,8 @@ public class VeiculoAdapter extends RecyclerView.Adapter<VeiculoAdapter.VeiculoV
     public void onBindViewHolder(@NonNull VeiculoViewHolder holder, int position) {
         Veiculo v = lista.get(position);
         holder.textPlaca.setText(v.getPlaca());
-        holder.textDataHora.setText(v.getDataHora());
+        holder.textDataHora.setText("Entrada: " + v.getDataHora());
+        
     }
 
     @Override
@@ -46,8 +47,8 @@ public class VeiculoAdapter extends RecyclerView.Adapter<VeiculoAdapter.VeiculoV
 
         public VeiculoViewHolder(@NonNull View itemView) {
             super(itemView);
-            textPlaca = itemView.findViewById(R.id.textPlaca);
-            textDataHora = itemView.findViewById(R.id.textDataHora);
+            textPlaca = itemView.findViewById(R.id.id_placa);
+            textDataHora = itemView.findViewById(R.id.id_entrada);
         }
     }
 }

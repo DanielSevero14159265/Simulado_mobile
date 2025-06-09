@@ -52,16 +52,15 @@ public class HomeFragment extends Fragment {
             AlertDialog dialog = new AlertDialog.Builder(requireContext())
                     .setTitle("Cadastrar Veículo")
                     .setView(dialogView)
-                    .setPositiveButton("Salvar", (dialogInterface, i) -> {
-                        String placa = editPlaca.getText().toString();
-                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
-                        sdf.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
-                        String hora = sdf.format(new Date());
-
-
-                        Veiculo novo = new Veiculo(placa, hora);
-                        listaVeiculos.add(novo);
-                        adapter.notifyItemInserted(listaVeiculos.size() - 1);
+                    .setPositiveButton("Salvar",
+                            (dialogInterface, i) -> {
+                                String placa = editPlaca.getText().toString();
+                                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                                sdf.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
+                                String hora = sdf.format(new Date());
+                                Veiculo novo = new Veiculo(placa, hora);
+                                listaVeiculos.add(novo);
+                                adapter.notifyItemInserted(listaVeiculos.size() - 1);
                     })
                     .setNegativeButton("Cancelar", null)
                     .create();
