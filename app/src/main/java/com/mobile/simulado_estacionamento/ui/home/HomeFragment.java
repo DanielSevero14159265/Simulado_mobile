@@ -1,6 +1,7 @@
 package com.mobile.simulado_estacionamento.ui.home;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.mobile.simulado_estacionamento.R;
 import com.mobile.simulado_estacionamento.databinding.FragmentHomeBinding;
+import com.mobile.simulado_estacionamento.ui.Database;
 import com.mobile.simulado_estacionamento.ui.home.veiculo.Veiculo;
 import com.mobile.simulado_estacionamento.ui.home.veiculo.VeiculoAdapter;
 
@@ -40,7 +42,8 @@ public class HomeFragment extends Fragment {
         // Lista e Adapter
         listaVeiculos = new ArrayList<>();
         adapter = new VeiculoAdapter(listaVeiculos);
-
+        Database db = new Database();
+        db.listar(listaVeiculos, adapter, getContext());
         binding.recyclerVeiculos.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerVeiculos.setAdapter(adapter);
 
@@ -54,6 +57,7 @@ public class HomeFragment extends Fragment {
                     .setView(dialogView)
                     .setPositiveButton("Salvar",
                             (dialogInterface, i) -> {
+                                // ADD PERSISTENCIA AQUI
                                 String placa = editPlaca.getText().toString();
                                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
                                 sdf.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
@@ -61,6 +65,7 @@ public class HomeFragment extends Fragment {
                                 Veiculo novo = new Veiculo(placa, hora);
                                 listaVeiculos.add(novo);
                                 adapter.notifyItemInserted(listaVeiculos.size() - 1);
+                                db.salvar(novo, getContext(), novo.isInside());
                     })
                     .setNegativeButton("Cancelar", null)
                     .create();
