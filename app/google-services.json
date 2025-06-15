@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "821870033772",
+    "project_id": "mobile-estacionamento",
+    "storage_bucket": "mobile-estacionamento.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:821870033772:android:9b86b392a04860664ad149",
+        "android_client_info": {
+          "package_name": "com.mobile.simulado_estacionamento"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDU05xQY_rWOHujd4nObGa0N3TakOXX22I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
