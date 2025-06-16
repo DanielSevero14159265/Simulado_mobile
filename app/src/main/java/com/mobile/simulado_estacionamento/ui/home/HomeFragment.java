@@ -1,7 +1,9 @@
 package com.mobile.simulado_estacionamento.ui.home;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,17 +38,16 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // Lista e Adapter
         listaVeiculos = new ArrayList<>();
-        adapter = new VeiculoAdapter(listaVeiculos);
+        adapter = new VeiculoAdapter(listaVeiculos, getContext());
         Database db = new Database();
         db.listar(listaVeiculos, adapter, getContext());
         binding.recyclerVeiculos.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerVeiculos.setAdapter(adapter);
-
         binding.botaoAdd.setOnClickListener(v -> {
             LayoutInflater layoutInflater = LayoutInflater.from(getContext());
             View dialogView = layoutInflater.inflate(R.layout.dialog_add_vehicle, null);
@@ -57,7 +58,6 @@ public class HomeFragment extends Fragment {
                     .setView(dialogView)
                     .setPositiveButton("Salvar",
                             (dialogInterface, i) -> {
-                                // ADD PERSISTENCIA AQUI
                                 String placa = editPlaca.getText().toString();
                                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
                                 sdf.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
@@ -81,5 +81,6 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+
     }
 }
