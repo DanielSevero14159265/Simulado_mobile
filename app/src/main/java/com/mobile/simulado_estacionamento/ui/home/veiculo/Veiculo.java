@@ -9,6 +9,7 @@ public class Veiculo {
     private boolean inside;
 
     public Veiculo(String placa, String entrada) {
+        this.id = 1;
         this.placa = placa;
         this.entrada = entrada;
         this.inside = true;
